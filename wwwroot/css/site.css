@@ -16,3 +16,17 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.nav-link{
+    border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover {
+    border-bottom: 2px solid red;
+    transition: .10s all;
+}
+
+.btn-logout{
+    border-radius: 0px!important;
+    border-top: 0px;
+}

@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RedForums.Data;
 using RedForums.Data.Common.Repositories;
 using RedForums.Data.Models;
 using RedForums.Data.Repositories;
+using RedForums.Data.Seeding;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 
@@ -30,6 +33,8 @@ using (var serviceScope = app.Services.CreateScope())
     var dbcontext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
     dbcontext.Database.Migrate();
+
+    new RolesSeeder().SeedAsync(dbcontext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
 }
 
 // Configure the HTTP request pipeline.

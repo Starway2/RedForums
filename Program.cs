@@ -5,6 +5,7 @@ using RedForums.Data.Common.Repositories;
 using RedForums.Data.Models;
 using RedForums.Data.Repositories;
 using RedForums.Data.Seeding;
+using RedForums.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,7 @@ builder.Services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(Deletabl
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 //App services
+builder.Services.AddTransient<ICategoriesService, CategoriesService>();
 
 var app = builder.Build();
 

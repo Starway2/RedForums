@@ -2,10 +2,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RedForums.Data;
 using RedForums.Data.Common.Repositories;
+using RedForums.Data.Mapping;
 using RedForums.Data.Models;
 using RedForums.Data.Repositories;
 using RedForums.Data.Seeding;
 using RedForums.Data.Services;
+using RedForums.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +32,8 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddTransient<ICategoriesService, CategoriesService>();
 
 var app = builder.Build();
+
+AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
 //Migrate database on startup
 using (var serviceScope = app.Services.CreateScope())

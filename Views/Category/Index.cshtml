@@ -1,1 +1,10 @@
-﻿
+﻿@model List<RedForums.Models.CategoryViewModel>
+<div class="container">
+    @foreach(var category in Model)
+    {
+        <p>Name: @category.Name</p>
+        <p>Description: @category.Description</p>
+        <p>Posts count: @category.PostsCount</p>
+        <hr />
+    }
+</div>

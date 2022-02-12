@@ -1,0 +1,20 @@
+﻿@model RedForums.Models.CategoryInputModel
+
+<div class="row">
+    <div class="col-md-6 text-center container">
+            <p class="h3">Create new category</p>
+        <form asp-controller="Category" asp-action="Create" method="post">
+            <div class="form-floating my-2 col-md-8 offset-2">
+                <input asp-for="Name" class="form-control" aria-required="true" />
+                <label asp-for="Name" class="form-label"></label>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-floating my-2">
+                <input asp-for="Description" class="form-control" />
+                <label asp-for="Description" class="form-label"></label>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </div>
+</div>

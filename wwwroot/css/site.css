@@ -30,3 +30,7 @@ body {
     border-radius: 0px!important;
     border-top: 0px;
 }
+
+.text-red{
+    color: red!important;
+}

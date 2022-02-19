@@ -15,7 +15,7 @@ namespace RedForums.Data.Services
 
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
-            IQueryable<Category> query = categoriesRepository.All().OrderBy(x => x.Name);
+            IQueryable<Category> query = categoriesRepository.AllWithDeleted().OrderBy(x => x.Name);
 
             if (count.HasValue)
             {

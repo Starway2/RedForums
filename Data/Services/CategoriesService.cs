@@ -25,12 +25,7 @@ namespace RedForums.Data.Services
             return query.To<T>().ToList();
         }
 
-        public T GetByName<T>(string name)
-        {
-            var category = categoriesRepository.All().Where(x => x.Name.Replace(" ", "-") == name.Replace(" ", "-")).To<T>().FirstOrDefault();
-
-            return category;
-        }
+        public T GetByName<T>(string name) => categoriesRepository.All().Where(x => x.Name == name).To<T>().FirstOrDefault();
 
         public async Task<string> CreateAsync(string name, string? description)
         {
@@ -40,9 +35,9 @@ namespace RedForums.Data.Services
             return category.Name;
         }
 
-        public async Task DeleteAsync(string name)
+        public async Task DeleteAsync(int id)
         {
-            var category = categoriesRepository.All().Where(x => x.Name == name).FirstOrDefault();
+            var category = categoriesRepository.All().Where(x => x.Id == id).FirstOrDefault();
             if (category != null)
             {
                 categoriesRepository.Delete(category);

@@ -39,5 +39,13 @@ namespace RedForums.Controllers
             }
             return View(model);
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await categoriesService.DeleteAsync(id);
+            return RedirectToPage("/ManageCategories");
+        }
     }
 }

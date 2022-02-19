@@ -45,15 +45,18 @@ namespace RedForums.Data.Services
             }
         }
 
-        public async Task<string> UpdateAsync(string name, string newName, string? description)
+        public async Task<string> UpdateAsync(int id, string name, string? description)
         {
-            var category = categoriesRepository.All().Where(x => x.Name != newName).FirstOrDefault();
-            
-            category.Name = newName;
-            category.Description = description;
-            categoriesRepository.Update(category);
-            await categoriesRepository.SaveChangesAsync();
-            return category.Name;
+            var category = categoriesRepository.AllWithDeleted().Where(x => x.Id == id).FirstOrDefault();
+            if (category != null)
+            {
+                category.Name = name;
+                category.Description = description;
+                categoriesRepository.Update(category);
+                await categoriesRepository.SaveChangesAsync();
+                return category.Name;
+            }
+            return "Category not found!";
         }
     }
 }

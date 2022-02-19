@@ -1,0 +1,23 @@
+﻿@using RedForums.Models
+@model CategoryViewModel
+@{
+}
+<div class="row">
+    <div class="col-md-6 text-center container">
+            <p class="h3">Create new category</p>
+        <form asp-controller="Category" asp-action="Update" method="post">
+            <div class="form-floating my-2 col-md-8 offset-2">
+                <input asp-for="Name" class="form-control" aria-required="true" value="@Model.Name" />
+                <label asp-for="Name" class="form-label"></label>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-floating my-2">
+                <input asp-for="Description" class="form-control" value="@Model.Description" />
+                <label asp-for="Description" class="form-label"></label>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+            <button type="submit" class="btn btn-danger">Update</button>
+        </form>
+    </div>
+</div>

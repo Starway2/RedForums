@@ -47,5 +47,27 @@ namespace RedForums.Controllers
             await categoriesService.DeleteAsync(id);
             return RedirectToPage("/ManageCategories");
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public IActionResult Update(int id)
+        {
+            var category = categoriesService.GetAll<CategoryViewModel>().Where(x => x.Id == id).FirstOrDefault();
+            if (category == null) return NotFound();
+            return View(category);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Update(CategoryViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var category = await categoriesService.UpdateAsync(model.Id, model.Name, model.Description);
+                //TODO: Redirect to category.
+                return Redirect("/");
+            }
+            return View(model);
+        }
     }
 }

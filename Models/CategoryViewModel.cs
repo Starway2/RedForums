@@ -12,5 +12,7 @@ namespace RedForums.Models
         public string? Description { get; set; }
 
         public int PostsCount { get; set; } 
+
+        public bool IsDeleted { get; set; }
     }
 }

@@ -6,9 +6,11 @@
         <a class="btn btn-sm btn-outline-danger mx-2 float-start" asp-area="" asp-controller="Category" asp-action="Create">Create new category</a>
             <thead>
                 <tr>
-                    <th scope="col" colspan=1>ID</th>
+                    <th scope="col">ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
+                    <th scope="col"># posts</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Options</th>
                 </tr>
             </thead>
@@ -19,13 +21,15 @@
                         <td>@category.Id</td>
                         <td><a asp-area="" asp-controller="Category" asp-action="">@category.Name</a></td>
                         <td>@category.Description</td>
+                        <td>@category.PostsCount</td>
+                        <td>@if (category.IsDeleted) { <span>Deleted</span> } else{<span>Active</span>}</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-outline-danger">Update</a>
-                            <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
+                            <form asp-area="" asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id" class="d-inline"><button type="submit" class="btn btn-sm btn-outline-danger">Delete</button></form>
                         </td>
                     </tr>
                 }
-            </tbody>
+            </tbody>    
         </table>
     </div>
 }

@@ -7,5 +7,7 @@
         Task<string> CreateAsync(string name, string? description);
 
         Task<string> UpdateAsync(int id, string name, string? description);
+
+        Task<string> Undelete(int id);
     }
 }

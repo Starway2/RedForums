@@ -13,11 +13,11 @@ namespace RedForums.Controllers
         {
             this.categoriesService = categoriesService;
         }
-        public IActionResult Index()
+        public IActionResult Index(string categoryName)
         {
-            var categories = categoriesService.GetAll<CategoryViewModel>().ToList();
+            var category = categoriesService.GetByName<CategoryViewModel>(categoryName);
 
-            return View(categories);
+            return View(category);
         }
 
         [HttpGet]
@@ -45,6 +45,14 @@ namespace RedForums.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await categoriesService.DeleteAsync(id);
+            return RedirectToPage("/ManageCategories");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Undelete(int id)
+        {
+            await categoriesService.Undelete(id);
             return RedirectToPage("/ManageCategories");
         }
 

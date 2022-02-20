@@ -58,5 +58,19 @@ namespace RedForums.Data.Services
             }
             return "Category not found!";
         }
+
+        public async Task<string> Undelete(int id)
+        {
+            var category = categoriesRepository.AllWithDeleted().Where(x => x.Id == id && x.IsDeleted == true).FirstOrDefault();
+            if(category != null)
+            {
+                category.IsDeleted = false;
+                categoriesRepository.Update(category);
+                await categoriesRepository.SaveChangesAsync();
+                return category.Name;
+            }
+            return string.Empty;
+
+        }
     }
 }

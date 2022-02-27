@@ -8,14 +8,23 @@ namespace RedForums.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoriesService categoriesService;
+        private readonly IPostsService postsService;
 
-        public CategoryController(ICategoriesService categoriesService)
+        public CategoryController(ICategoriesService categoriesService, IPostsService postsService)
         {
             this.categoriesService = categoriesService;
+            this.postsService = postsService;
         }
+        [HttpGet("Category/{categoryName}")]
         public IActionResult Index(string categoryName)
         {
-            var category = categoriesService.GetByName<CategoryViewModel>(categoryName);
+            var category = categoriesService.GetByName<CategoryViewModel>(categoryName.Replace('-', ' '));
+            if(category == null)
+            {
+                return NotFound();
+            }
+            var posts = postsService.GetAll<PostViewModel>().Where(x => x.Category.Id == category.Id);
+            category.Posts = posts;
 
             return View(category);
         }

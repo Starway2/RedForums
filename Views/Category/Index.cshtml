@@ -1,10 +1,27 @@
-﻿@model List<RedForums.Models.CategoryViewModel>
+﻿@using RedForums.Models
+@model CategoryViewModel
 <div class="container">
-    @foreach(var category in Model)
-    {
-        <p>Name: @category.Name</p>
-        <p>Description: @category.Description</p>
-        <p>Posts count: @category.PostsCount</p>
-        <hr />
-    }
+    <div class="text-center">
+        <h2>@Model.Name</h2>
+        <h5 class="text-muted">@Model.Description</h5>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a asp-area="" asp-controller="Post" asp-action="Create" asp-route-categoryId="@Model.Id" class="float-start btn btn-outline-danger">Create post</a>
+        }
+        <table class="table text-start">
+            @foreach (var post in Model.Posts.OrderByDescending(x => x.CreatedOn))
+            {
+                <tr>
+                    <td class="align-middle"><a asp-area="" asp-controller="Post" asp-action="Index" asp-route-title="@post.Title">@post.Title</a></td>
+                    <td class="text-center align-middle">0</td>
+                    <td class="text-center align-middle">
+                        <div class="d-flex flex-column small">
+                            <span>@post.UserUserName</span>
+                            <span>@post.CreatedOn.ToString("dd-MM-yyyy HH:mm")</span>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
 </div>

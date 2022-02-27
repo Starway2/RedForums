@@ -11,7 +11,7 @@
         {
             <div class="card mx-2" style="width: 18rem;">
                 <div class="card-header">
-                    <a href="#" class="">@category.Name</a>
+                    <a asp-area="" asp-controller="Category" asp-action="Index" asp-route-categoryName="@category.Name.Replace(' ', '-')" class="">@category.Name</a>
                     <div class="text-muted">@category.Description</div>
                 </div>
                 <ul class="list-group list-group-flush justify-content-center">

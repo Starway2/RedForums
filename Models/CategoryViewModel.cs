@@ -5,6 +5,10 @@ namespace RedForums.Models
 {
     public class CategoryViewModel : IMapFrom<Category>
     {
+        public CategoryViewModel()
+        {
+            Posts = new HashSet<PostViewModel>();
+        }
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -14,5 +18,7 @@ namespace RedForums.Models
         public int PostsCount { get; set; } 
 
         public bool IsDeleted { get; set; }
+
+        public IEnumerable<PostViewModel> Posts { get; set; }
     }
 }

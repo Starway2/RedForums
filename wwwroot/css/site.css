@@ -34,3 +34,9 @@ body {
 .text-red{
     color: red!important;
 }
+.user-border {
+    border-right: 1px solid #dee2e6;
+}
+.fs-7{
+    font-size: 0.9rem!important;
+}

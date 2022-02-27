@@ -1,0 +1,16 @@
+﻿@using RedForums.Models
+@model PostViewModel
+<div>
+    <div class="row flex-row border-bottom">
+        <div class="col-2 d-flex flex-column text-center user-border">
+            <span class="">@Model.UserUserName</span>
+            <span class="">Posts: @Model.UserPostCount</span>
+            <span class="">Joined: @Model.User.CreatedOn.ToString("dd-MM-yyyy")</span>
+        </div>
+        <div class="col">
+            <h3 class="fs-4 mb-0">@Model.Title</h3>
+            <span class="text-muted fs-7">@Model.CreatedOn.ToString("dd-MM-yyyy HH:MM")</span><br />
+            <span>@Model.Content</span>
+        </div>
+    </div>
+</div>

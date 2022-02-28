@@ -46,7 +46,7 @@ namespace RedForums.Data.Services
 
         public IEnumerable<T> GetAll<T>(int postId, int? count = null)
         {
-            IQueryable<Comment> query = repository.All().OrderByDescending(x => x.CreatedOn);
+            IQueryable<Comment> query = repository.All().Where(x => x.PostId == postId);
 
             if (count.HasValue)
             {

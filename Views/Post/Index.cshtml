@@ -1,11 +1,15 @@
 ﻿@using RedForums.Models
 @model PostViewModel
+@inject UserManager<ApplicationUser> userManager;
+@{
+    int commentCount = 1;
+}
 <div>
     <div class="row flex-row border-bottom">
-        <div class="col-2 d-flex flex-column text-center user-border">
-            <span class="">@Model.UserUserName</span>
-            <span class="">Posts: @Model.UserPostCount</span>
-            <span class="">Joined: @Model.User.CreatedOn.ToString("dd-MM-yyyy")</span>
+        <div class="col-2 d-flex flex-column text-center user-border py-2">
+            <span>@Model.UserUserName</span>
+            <span>Posts: @Model.UserPostCount</span>
+            <span>Joined: @Model.User.CreatedOn.ToString("dd-MM-yyyy")</span>
         </div>
         <div class="col">
             <h3 class="fs-4 mb-0">@Model.Title</h3>
@@ -13,4 +17,23 @@
             <span>@Model.Content</span>
         </div>
     </div>
+    @foreach (var comment in Model.Comments)
+    {
+        <div class="row flex-row border-bottom">
+            <div class="col-2 d-flex flex-column text-center user-border py-2">
+                <span class="">@comment.UserUserName</span>
+                <span class="">Posts: @comment.UserPostCount</span>
+                <span class="">Joined: @comment.User.CreatedOn.ToString("dd-MM-yyyy")</span>
+            </div>
+            <div class="col">
+                <div class="d-flex justify-content-between mt-2">
+                    <span class="text-muted fs-7">@comment.CreatedOn.ToString("dd-MM-yyyy HH:MM")</span>
+                    <span class="text-muted fs-7">#@commentCount</span>
+                </div>
+                <span>@comment.Content</span>
+            </div>
+        </div>
+        commentCount++;
+    }
+    @await Html.PartialAsync("_AddCommentPartial", new CommentInputModel(){PostId = Model.Id, UserId = userManager.GetUserId(User)})
 </div>

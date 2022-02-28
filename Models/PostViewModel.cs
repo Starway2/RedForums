@@ -5,6 +5,12 @@ namespace RedForums.Models
 {
     public class PostViewModel : IMapFrom<Post>
     {
+        public PostViewModel()
+        {
+            Comments = new HashSet<CommentViewModel>();
+        }
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public string Content { get; set; }
@@ -18,5 +24,7 @@ namespace RedForums.Models
         public int UserPostCount { get; set; }
 
         public virtual ApplicationUser User { get; set; }
+
+        public IEnumerable<CommentViewModel> Comments { get; set; }
     }
 }

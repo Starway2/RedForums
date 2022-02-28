@@ -1,0 +1,22 @@
+﻿@using RedForums.Models
+@model CommentInputModel
+<div class="row text-center py-2">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h4 class="">Add new comment</h4>
+        <form asp-area="" asp-controller="Post" asp-action="AddComment" method="post">
+            <div class="form-floating my-2 col-md-8 offset-2">
+                <input asp-for="Content" class="form-control" aria-required="true" />
+                <label asp-for="Content" class="form-label"></label>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="PostId" value="@Model.PostId" />
+            <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+            <button type="submit" class="btn btn-danger">Create</button>
+        </form>
+    }
+    else
+    {
+        <span class="h5">You need to be logged in to post comment.</span>
+    }
+</div>

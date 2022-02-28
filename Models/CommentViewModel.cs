@@ -11,8 +11,14 @@ namespace RedForums.Models
 
         public int PostId { get; set; }
 
+        public string UserUserName { get; set; }
+
+        public int UserPostCount { get; set; }
+
         public virtual ApplicationUser User { get; set; }
 
         public string UserId { get; set; }
+
+        public DateTime CreatedOn { get; set; }
     }
 }

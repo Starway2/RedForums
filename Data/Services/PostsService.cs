@@ -12,12 +12,12 @@ namespace RedForums.Data.Services
         {
             this.repository = repository;
         }
-        public async Task<int> CreateAsync(string title, string content, string userId, int categoryId)
+        public async Task<Post> CreateAsync(string title, string content, string userId, int categoryId)
         {
             var post = new Post() { Title = title, Content = content, CategoryId = categoryId, UserId = userId };
             await repository.AddAsync(post);
             await repository.SaveChangesAsync();
-            return post.Id;
+            return post;
         }
 
         public async Task DeleteAsync(int id)
@@ -42,9 +42,11 @@ namespace RedForums.Data.Services
             return query.To<T>().ToList();
         }
 
+        public T GetById<T>(int id) => repository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
+
         public T GetByTitle<T>(string title) => repository.All().Where(post => post.Title == title).To<T>().FirstOrDefault();
 
-        public async Task<int> UpdateAsync(int id, string title, string content, string userId, int categoryId)
+        public async Task<Post> UpdateAsync(int id, string title, string content, string userId, int categoryId)
         {
             var post = repository.All().Where(x => x.Title == title).FirstOrDefault();
 
@@ -52,7 +54,7 @@ namespace RedForums.Data.Services
             post.Content = content;
             repository.Update(post);
             await repository.SaveChangesAsync();
-            return post.Id;
+            return post;
         }
     }
 }

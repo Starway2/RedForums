@@ -13,7 +13,9 @@ namespace RedForums.Models
 
         public string UserUserName { get; set; }
 
-        public int UserPostCount { get; set; }
+        public int UserPostsCount { get; set; }
+
+        public int UserCommentsCount { get; set; }
 
         public virtual ApplicationUser User { get; set; }
 

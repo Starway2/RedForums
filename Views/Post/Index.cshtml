@@ -8,7 +8,8 @@
     <div class="row flex-row border-bottom">
         <div class="col-2 d-flex flex-column text-center user-border py-2">
             <span>@Model.UserUserName</span>
-            <span>Posts: @Model.UserPostCount</span>
+            <span>Posts: @Model.UserPostsCount</span>
+            <span>Comments: @Model.UserCommentsCount</span>
             <span>Joined: @Model.User.CreatedOn.ToString("dd-MM-yyyy")</span>
         </div>
         <div class="col">
@@ -22,7 +23,8 @@
         <div class="row flex-row border-bottom">
             <div class="col-2 d-flex flex-column text-center user-border py-2">
                 <span class="">@comment.UserUserName</span>
-                <span class="">Posts: @comment.UserPostCount</span>
+                <span class="">Posts: @comment.UserPostsCount</span>
+                <span class="">Comments: @comment.UserCommentsCount</span>
                 <span class="">Joined: @comment.User.CreatedOn.ToString("dd-MM-yyyy")</span>
             </div>
             <div class="col">

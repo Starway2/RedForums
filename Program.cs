@@ -71,6 +71,7 @@ app.MapRazorPages();
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapControllerRoute(name: "postRoute", pattern: "Post/{id}", defaults: new { controller = "Post", action = "Index" }, new { id = @"\d+" });
     endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
     endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 });

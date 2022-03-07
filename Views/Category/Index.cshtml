@@ -6,18 +6,23 @@
         <h5 class="text-muted">@Model.Description</h5>
         @if (User.Identity.IsAuthenticated)
         {
-            <a asp-area="" asp-controller="Post" asp-action="Create" asp-route-categoryId="@Model.Id" class="float-start btn btn-outline-danger">Create post</a>
+            <a asp-area="" asp-controller="Post" asp-action="Create" asp-route-categoryId="@Model.Id" class="float-start btn btn-outline-danger mb-2">Create post</a>
         }
-        <table class="table text-start">
+        <table class="table text-start table-hover">
+            <tr>
+                <td>Post</td>
+                <td class="text-center"># of comments</td>
+                <td class="text-center">Created by</td>
+            </tr>
             @foreach (var post in Model.Posts.OrderByDescending(x => x.CreatedOn))
             {
                 <tr>
-                    <td class="align-middle"><a asp-area="" asp-controller="Post" asp-action="Index" asp-route-title="@post.Title">@post.Title</a></td>
-                    <td class="text-center align-middle">0</td>
+                    <td class="align-middle"><a asp-area="" asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">@post.Title</a></td>
+                    <td class="text-center align-middle"><span>@post.Comments.Count()</span></td>
                     <td class="text-center align-middle">
                         <div class="d-flex flex-column small">
-                            <span>@post.UserUserName</span>
-                            <span>@post.CreatedOn.ToString("dd-MM-yyyy HH:mm")</span>
+                            <span class="small">@post.UserUserName</span>
+                            <span class="small">at @post.CreatedOn.ToString("dd-MM-yyyy HH:mm")</span>
                         </div>
                     </td>
                 </tr>

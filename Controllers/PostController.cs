@@ -13,29 +13,27 @@ namespace RedForums.Controllers
         private readonly ICommentsService commentsService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public PostController(IPostsService postsService, ICommentsService commentsService ,UserManager<ApplicationUser> userManager)
+        public PostController(IPostsService postsService, ICommentsService commentsService, UserManager<ApplicationUser> userManager)
         {
             this.postsService = postsService;
             this.commentsService = commentsService;
             this.userManager = userManager;
         }
 
-        [Route("/Post/{title}")]
-        public IActionResult Index(string title)
+        public IActionResult Index(int id)
         {
-            var post = postsService.GetByTitle<PostViewModel>(title);
+            var post = postsService.GetById<PostViewModel>(id);
             if (post == null) return NotFound();
             post.Comments = commentsService.GetAll<CommentViewModel>(post.Id).OrderBy(x => x.CreatedOn);
-            
+
             return View(post);
         }
 
         [HttpGet]
         [Authorize]
-        [Route("/Post/Create/{categoryId}")]
         public IActionResult Create(int categoryId)
         {
-            return View(new PostInputModel() { CategoryId = categoryId});
+            return View(new PostInputModel() { CategoryId = categoryId });
         }
 
         [HttpPost]
@@ -45,15 +43,14 @@ namespace RedForums.Controllers
             if (ModelState.IsValid)
             {
                 var post = await postsService.CreateAsync(model.Title, model.Content, userManager.GetUserId(User), model.CategoryId);
-                if(post == null) return NotFound();
-                return Redirect($"/Post/{post.Title}");
+                if (post == null) return NotFound();
+                return RedirectToAction("Index", "Post", new { area = "", id = post.Id });
             }
             return View(model);
         }
 
         [HttpPost]
         [Authorize]
-        [Route("/Post/AddComment")]
         public async Task<IActionResult> AddComment(CommentInputModel model)
         {
             var post = postsService.GetById<PostViewModel>(model.PostId);
@@ -62,9 +59,8 @@ namespace RedForums.Controllers
             if (ModelState.IsValid)
             {
                 await commentsService.AddAsync(model);
-                return Redirect($"/Post/{post.Title}");
             }
-            return Redirect($"/Post/{post.Title}");
+            return RedirectToAction("Index", "Post", new { area = "", id = post.Id });
         }
     }
 }

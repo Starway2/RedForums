@@ -19,7 +19,7 @@
                 {
                     <tr>
                         <td>@category.Id</td>
-                        <td><a asp-area="" asp-controller="Category" asp-action="">@category.Name</a></td>
+                        <td><a asp-area="" asp-controller="Category" asp-action="Index" asp-route-categoryName="@category.Name.Replace(' ', '-')">@category.Name</a></td>
                         <td>@category.Description</td>
                         <td>@category.PostsCount</td>
                         <td>@if (category.IsDeleted)

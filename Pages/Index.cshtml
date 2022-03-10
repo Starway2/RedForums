@@ -15,7 +15,11 @@
                     <div class="text-muted">@category.Description</div>
                 </div>
                 <ul class="list-group list-group-flush justify-content-center">
-                    <li class="list-group-item align-middle">A post.</li>
+                    @foreach (var post in category.Posts.OrderByDescending(x => x.CreatedOn).Take(5))
+                    {
+                        <li class="list-group-item align-middle"><a asp-area="" asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">@post.Title</a></li>
+                    }
+
                 </ul>
             </div>
         }

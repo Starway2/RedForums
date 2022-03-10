@@ -29,14 +29,14 @@ namespace RedForums.Controllers
             return View(category);
         }
 
-        [HttpGet]
+        [HttpGet("Category/Create")]
         [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("Category/Create")]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Create(CategoryInputModel model)
         {
@@ -81,8 +81,7 @@ namespace RedForums.Controllers
             if (ModelState.IsValid)
             {
                 var category = await categoriesService.UpdateAsync(model.Id, model.Name, model.Description);
-                //TODO: Redirect to category.
-                return Redirect("/");
+                return RedirectToPage("/ManageCategories");
             }
             return View(model);
         }

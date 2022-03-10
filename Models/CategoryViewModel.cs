@@ -15,6 +15,6 @@ namespace RedForums.Models
 
         public bool IsDeleted { get; set; }
 
-        public IEnumerable<PostViewModel> Posts { get; set; }
+        public IEnumerable<PostViewModel>? Posts { get; set; }
     }
 }

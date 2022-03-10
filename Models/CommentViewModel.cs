@@ -1,4 +1,5 @@
-﻿using RedForums.Data.Mapping;
+﻿using Ganss.XSS;
+using RedForums.Data.Mapping;
 using RedForums.Data.Models;
 
 namespace RedForums.Models
@@ -6,6 +7,8 @@ namespace RedForums.Models
     public class CommentViewModel : IMapFrom<Comment>
     {
         public string Content { get; set; }
+
+        public string CleanContent => new HtmlSanitizer().Sanitize(Content);
 
         public Post Post { get; set; }
 

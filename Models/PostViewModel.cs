@@ -1,19 +1,18 @@
-﻿using RedForums.Data.Mapping;
+﻿using Ganss.XSS;
+using RedForums.Data.Mapping;
 using RedForums.Data.Models;
 
 namespace RedForums.Models
 {
     public class PostViewModel : IMapFrom<Post>
     {
-        public PostViewModel()
-        {
-            Comments = new HashSet<CommentViewModel>();
-        }
         public int Id { get; set; }
 
         public string Title { get; set; }
 
         public string Content { get; set; }
+
+        public string CleanContent => new HtmlSanitizer().Sanitize(Content);
 
         public DateTime CreatedOn { get; set; }
 

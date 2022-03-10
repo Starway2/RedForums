@@ -1,4 +1,5 @@
-﻿using RedForums.Data.Common.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using RedForums.Data.Common.Repositories;
 using RedForums.Data.Mapping;
 using RedForums.Data.Models;
 
@@ -15,7 +16,7 @@ namespace RedForums.Data.Services
 
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
-            IQueryable<Category> query = categoriesRepository.AllWithDeleted().OrderBy(x => x.Name);
+            IQueryable<Category> query = categoriesRepository.AllWithDeleted().OrderBy(x => x.Name).AsSplitQuery();
 
             if (count.HasValue)
             {

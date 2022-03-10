@@ -15,7 +15,7 @@
         <div class="col">
             <h3 class="fs-4 mb-0">@Model.Title</h3>
             <span class="text-muted fs-7">@Model.CreatedOn.ToString("dd-MM-yyyy HH:MM")</span><br />
-            <span>@Model.Content</span>
+            <span>@Model.CleanContent</span>
         </div>
     </div>
     @foreach (var comment in Model.Comments)
@@ -32,7 +32,7 @@
                     <span class="text-muted fs-7">@comment.CreatedOn.ToString("dd-MM-yyyy HH:MM")</span>
                     <span class="text-muted fs-7">#@commentCount</span>
                 </div>
-                <span>@comment.Content</span>
+                <span>@comment.CleanContent</span>
             </div>
         </div>
         commentCount++;

@@ -5,10 +5,6 @@ namespace RedForums.Models
 {
     public class CategoryViewModel : IMapFrom<Category>
     {
-        public CategoryViewModel()
-        {
-            Posts = new HashSet<PostViewModel>();
-        }
         public int Id { get; set; }
 
         public string Name { get; set; }

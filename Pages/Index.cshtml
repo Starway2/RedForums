@@ -4,24 +4,33 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="container text-center">
-    <h1 class="display-1 fw-bolder text-red">Red Forums</h1>
-    <div class="d-flex flex-row text-center">
-        @foreach (var category in Model.Categories)
-        {
-            <div class="card mx-2" style="width: 18rem;">
-                <div class="card-header">
-                    <a asp-area="" asp-controller="Category" asp-action="Index" asp-route-categoryName="@category.Name.Replace(' ', '-')" class="">@category.Name</a>
-                    <div class="text-muted">@category.Description</div>
-                </div>
-                <ul class="list-group list-group-flush justify-content-center">
-                    @foreach (var post in category.Posts.OrderByDescending(x => x.CreatedOn).Take(5))
-                    {
-                        <li class="list-group-item align-middle"><a asp-area="" asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">@post.Title</a></li>
-                    }
-
-                </ul>
-            </div>
-        }
-    </div>
+<div class="container">
+    <h1 class="display-1 fw-bolder text-red align-middle text-center">Red Forums</h1>
+    @foreach (var category in Model.Categories)
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <td colspan=2>
+                        <span class="d-block"><strong><a class="link category-name" asp-area="" asp-controller="Category" asp-action="Index" asp-route-categoryName="@category.Name.Replace(' ', '-')" class="">@category.Name</a></strong></span>
+                        <span class="d-block text-muted small">@category.Description</span>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var post in category.Posts.OrderByDescending(x => x.CreatedOn).Take(5))
+                {
+                    <tr>
+                        <td class="align-middle col-9"><a class="link" asp-area="" asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">@post.Title</a></td>
+                        <td class="text-center align-middle col-3">
+                            <div class="d-flex flex-column small">
+                                <span class="">posted by: <a href="#" class="fw-bold">@post.UserUserName</a></span>
+                                <span class="">at @post.CreatedOn.ToString("dd-MM-yyyy HH:mm")</span>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>

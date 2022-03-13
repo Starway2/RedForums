@@ -40,3 +40,15 @@ body {
 .fs-7{
     font-size: 0.9rem!important;
 }
+
+.link{
+    text-decoration: none;
+    color: inherit;
+}
+.link:hover{
+    color: inherit;
+    font-weight: bold;
+}
+.category-name{
+    font-size: 1.2rem!important;
+}
